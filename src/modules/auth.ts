@@ -1,8 +1,20 @@
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 
 type User = {
 	id: string;
 	username: string;
+};
+
+export const comparePasswords = async (
+	password: string,
+	hashedPassword: string,
+) => {
+	return bcrypt.compare(password, hashedPassword);
+};
+
+export const hashPassword = (password: string) => {
+	return bcrypt.hash(password, 10);
 };
 
 export const createJWT = (user: User) => {
