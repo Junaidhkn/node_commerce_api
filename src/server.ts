@@ -5,6 +5,8 @@ import morgan from 'morgan';
 import cors from 'cors';
 import * as dotenv from 'dotenv';
 import { protect } from './modules/auth';
+import { create } from 'domain';
+import { createNewUser, loginUser } from './handlers/user';
 
 const app = express();
 
@@ -20,6 +22,8 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.use('/api', protect, router);
+app.post('/signup', createNewUser);
+app.post('/login', loginUser);
 
 app.listen(8080, () => {
 	console.log('Server is running on port localhost:8080');
